@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+}
+textarea {
+    width: 100vw;
+    box-sizing: border-box;
+    height: calc(100vh - 40px);
+    border: none;
+    border-bottom: 1px solid black;
+}
+input {
+    position: absolute;
+    padding: 5px 10px;
+    font-size: 18px;
+    bottom: 0;
+    left: 0;
+    height: 40px;
+    box-sizing: border-box;
+    border: none;
+    width: 100vw;
+}
