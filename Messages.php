@@ -84,6 +84,9 @@ class Messages {
     // :: function add new message to databse with current time
     // -------------------------------------------------------------------------
     function newMessage($user, $message) {
+        if (strlen($message) > 400) {
+            $message = substr($message, 0, 400) . "...";
+        }
         return $this->query("INSERT INTO chat(username, message, timestamp) " .
                             "VALUES (?, ?, strftime('%s','now'))",
                             array($user, $message));
