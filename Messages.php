@@ -4,6 +4,7 @@
 // :: class that represent model of messages using SQLite database
 // -----------------------------------------------------------------------------
 class Messages {
+    private $limit = 400;
     function __construct($time = null) {
         // if $time is null it will return all messages we will use this when
         // showing message when app starts
@@ -84,8 +85,8 @@ class Messages {
     // :: function add new message to databse with current time
     // -------------------------------------------------------------------------
     function newMessage($user, $message) {
-        if (strlen($message) > 400) {
-            $message = substr($message, 0, 400) . "...";
+        if (strlen($message) > $this->limit) {
+            $message = substr($message, 0, $this->limit) . "...";
         }
         return $this->query("INSERT INTO chat(username, message, timestamp) " .
                             "VALUES (?, ?, strftime('%s','now'))",
