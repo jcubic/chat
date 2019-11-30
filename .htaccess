@@ -1,0 +1,6 @@
+#RewriteEngine on
+
+#RewriteRule ^(.*)$ $1 [NS,E=no-gzip:1,E=dont-vary:1]
+
+#SetOutputFilter DEFLATE
+#SetEnvIfNoCase Request_URI \.odp$ no-gzip dont-vary
