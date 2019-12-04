@@ -7,6 +7,7 @@ textarea {
     height: calc(100vh - 40px);
     border: none;
     border-bottom: 1px solid black;
+    resize: none;
 }
 input {
     position: absolute;
