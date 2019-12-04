@@ -3,7 +3,7 @@
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set('display_errors', 'On');
 
-define(__DEBUG__, false);
+define("__DEBUG__", false);
 
 ?><!DOCTYPE html>
 <html>
@@ -64,6 +64,9 @@ eventSource.addEventListener('chat', (e) => {
     textarea.value += data.username + '> ' + data.message + '\n';
     textarea.scrollTop = textarea.scrollHeight;
 });
+
+textarea.scrollTop = textarea.scrollHeight;
+input.focus();
 
 <?php if (isset($_GET['notification'])) { ?>
 // Firebase Code
