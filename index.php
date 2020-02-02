@@ -27,7 +27,8 @@ $data = $messages->fetch('username, message');
 <form>
 <textarea readonly><?php
 foreach ($data as $row) {
-  echo $row['username'] . "> " . $row['message'] . "\n";
+  $msg = preg_replace("%</(text)(area)>%i", "</\\1&#8203;\\2>", $row['message']);
+  echo $row['username'] . "> " . $msg . "\n";
 }
 ?></textarea>
 <input placeholder="what you want to say?"/>
