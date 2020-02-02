@@ -18,7 +18,7 @@ $data = $messages->fetch('username, message');
 <form>
 <textarea readonly><?php
 foreach ($data as $row) {
-  $msg = preg_replace("%</(text)(area)>%i", "</\\1&#8203;\\2>", $row['message']);
+  $msg = htmlentities($row['message'], ENT_QUOTES, 'UTF-8');
   echo $row['username'] . "> " . $msg . "\n";
 }
 ?></textarea>
