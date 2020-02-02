@@ -4,3 +4,8 @@
 
 #SetOutputFilter DEFLATE
 #SetEnvIfNoCase Request_URI \.odp$ no-gzip dont-vary
+
+
+RewriteEngine on
+
+RewriteRule firebase_token - [F]
