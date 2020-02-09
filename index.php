@@ -13,8 +13,8 @@ define("__DEBUG__", false);
     <meta name="description" content="Prosty czat w JavaScript i PHP, za pomocą Server Side Events"/>
     <link href="style.css" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-messaging.js"></script>
   </head>
 <body>
 <?php
@@ -89,27 +89,28 @@ if ('serviceWorker' in navigator) {
    }).then((registration) => {
        firebase.messaging().useServiceWorker(registration);
        const messaging = firebase.messaging();
-       messaging.requestPermission().then(function() {
-           return messaging.getToken();
-       }).then(token => {
+       if (Notification.permission === "granted") {
+           messaging.getToken().then(handleTokens);
+       } else {
+           Notification.requestPermission().then(function() {
+               return messaging.getToken();
+           }).then(handleTokens);
+       }
+       function handleTokens(token) {
            messaging.onTokenRefresh(() => {
-              messaging.getToken().then((refreshedToken) => {
-                  // when token is refreshed update token on server
-                  // for this, you need to get id of the user from server
-                  // in register function so you can update
-              });
+              messaging.getToken().then(updateToken);
            });
+           updateToken(token);
+       }
+       function updateToken(token) {
            var data = new FormData();
-           messaging.onMessage((payload) => {
-               console.log('Message received. ', payload);
-           });
-           data.append('username', username);
-           data.append('token', token);
-           return fetch('register.php', {
-              body: data,
-              method: 'POST'
-           }).then(r => r.text());
-       });
+            data.append('username', username);
+            data.append('token', token);
+            return fetch('register.php', {
+                body: data,
+                method: 'POST'
+            }).then(r => r.text());
+       }
    });
 }
 

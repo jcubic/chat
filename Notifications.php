@@ -21,9 +21,8 @@ class Notification {
     // -------------------------------------------------------------------------
     public function __call($name, $args) {
         return call_user_func_array(array($this->db, $name), $args);
-    }   
+    }
     // -------------------------------------------------------------------------
-    
     private function get_user_id($username) {
         $ret = $this->query("SELECT * FROM users WHERE username = ?", array($username));
         if (count($ret) == 1) {
@@ -31,12 +30,20 @@ class Notification {
         }
         $this->query("INSERT INTO users(username) values (?)", array($username));
         return $this->lastInsertId();
-    }   
+    }
     // -------------------------------------------------------------------------
-    // :: 
+    private function token($id) {
+        $arr = $this->query("SELECT token FROM tokens WHERE userid = ?", array($id));
+        return count($arr) > 0;
+    }
+    // -------------------------------------------------------------------------
+    // :: register new token if there is not already registered
     // -------------------------------------------------------------------------
     public function register($username, $token) {
         $id = $this->get_user_id($username);
+        if ($this->token($id)) {
+            $this->query("DELETE FROM tokens WHERE userid = ?", array($id));
+        }
         $this->query("INSERT INTO tokens(userid, token) VALUES(?, ?)",
                      array($id, $token));
     }

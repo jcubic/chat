@@ -9,3 +9,9 @@
 RewriteEngine on
 
 RewriteRule firebase_token - [F]
+RewriteRule messages.sqlite - [F]
+RewriteRule firebase.log - [F]
+
+RewriteCond %{SERVER_PORT} ^80$
+RewriteCond %{HTTP_HOST} !localhost
+RewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
