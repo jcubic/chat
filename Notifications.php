@@ -1,17 +1,17 @@
 <?php
 
 require_once('Database.php');
-require_once('http.php');
+require_once('http.php'); // get and post functions using curl
 
 class Notification {
     public function __construct() {
-        $this->db = new Database();
+        $this->db = new Database(); // wrapper over PDO and SQLite
         if (!$this->table_exists('users')) {
             $this->query("CREATE TABLE users(id INTEGER NOT NULL PRIMARY KEY".
                          " AUTOINCREMENT, username VARCHAR(300))");
         }
         if (!$this->table_exists('tokens')) {
-            $this->query("CREATE TABLE tokens(userid INTEGER, token VARCHAR" . 
+            $this->query("CREATE TABLE tokens(userid INTEGER, token VARCHAR" .
                          "(256), FOREIGN KEY (userid) REFERENCES users (id))");
         }
         $this->server_token = file_get_contents('firebase_token');
@@ -23,6 +23,8 @@ class Notification {
         return call_user_func_array(array($this->db, $name), $args);
     }
     // -------------------------------------------------------------------------
+    // :: get id of a user. If user don't exist create one
+    // -------------------------------------------------------------------------
     private function get_user_id($username) {
         $ret = $this->query("SELECT * FROM users WHERE username = ?", array($username));
         if (count($ret) == 1) {
@@ -31,6 +33,8 @@ class Notification {
         $this->query("INSERT INTO users(username) values (?)", array($username));
         return $this->lastInsertId();
     }
+    // -------------------------------------------------------------------------
+    // :: return token for the userid
     // -------------------------------------------------------------------------
     private function token($id) {
         $arr = $this->query("SELECT token FROM tokens WHERE userid = ?", array($id));
@@ -48,7 +52,7 @@ class Notification {
                      array($id, $token));
     }
     // -------------------------------------------------------------------------
-    // :: send push notification using Firebase to all register users
+    // :: send push notification using Firebase to all registered users
     // -------------------------------------------------------------------------
     public function send($username, $message) {
         $rows = $this->query("SELECT * FROM tokens");
