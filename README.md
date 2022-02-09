@@ -11,7 +11,7 @@ to setup the app, you need to register firebase project then firebase web app
 for that project. Then copy the Cloud Messaging Secret key and save in
 `firebase_token` file.
 
-You should also add your Firebase appliction keys to index.php and sw.js.
+You should also add your Firebase application keys to index.php and sw.js.
 
 ## License
 
