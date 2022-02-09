@@ -1,4 +1,4 @@
-/* global importScripts, irebase */
+/* global importScripts, firebase */
 
 importScripts('https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/7.5.0/firebase-messaging.js');
