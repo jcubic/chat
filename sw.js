@@ -4,13 +4,13 @@ importScripts('https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/7.5.0/firebase-messaging.js');
 
 var firebaseConfig = {
-    apiKey: "AIzaSyBJguGFPPZXozdkPVpBZNbGMVJ_LTOYuQA",
-    authDomain: "jcubic-1500107003772.firebaseapp.com",
-    databaseURL: "https://jcubic-1500107003772.firebaseio.com",
-    projectId: "jcubic-1500107003772",
-    storageBucket: "jcubic-1500107003772.appspot.com",
-    messagingSenderId: "1005897028349",
-    appId: "1:1005897028349:web:f9f90304397535db17e494"
+  apiKey: "AIzaSyBX8doVfi1WRWcRV3RPJSIIyaW-8d4Knh8",
+  authDomain: "salami-5d4ed.firebaseapp.com",
+  projectId: "salami-5d4ed",
+  storageBucket: "salami-5d4ed.appspot.com",
+  messagingSenderId: "155859060262",
+  appId: "1:155859060262:web:d40ae3a62f09f9d04048e7",
+  measurementId: "G-LBJJQX6YPV"
 };
 
 // Initialize Firebase
